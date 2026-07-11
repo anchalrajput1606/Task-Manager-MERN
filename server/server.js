@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
 dotenv.config();
+console.log("MONGO_URI =", process.env.MONGO_URI);
+console.log("PORT =", process.env.PORT);
 
 connectDB();
 
