@@ -68,53 +68,57 @@ const getTaskById = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-    try {
+  try {
 
-        const { title, description, status } = req.body;
+    const task = await Task.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    });
 
-        const task = await Task.findByIdAndUpdate(
-            req.params.id,
-            {
-                title,
-                description,
-                status
-            },
-            {
-                new: true,
-                runValidators: true
-            }
-        );
-
-        if (!task) {
-            return res.status(404).json({
-                message: "Task not found"
-            });
-        }
-
-        return res.status(200).json({
-            message: "Task Updated Successfully",
-            task
-        });
-
-    } catch (error) {
-
-        return res.status(500).json({
-            message: error.message
-        });
-
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found"
+      });
     }
+
+    task.title = req.body.title || task.title;
+    task.description = req.body.description || task.description;
+    task.status = req.body.status || task.status;
+
+    const updatedTask = await task.save();
+
+    return res.status(200).json({
+      message: "Task Updated Successfully",
+      task: updatedTask
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      message: error.message
+    });
+
+  }
 };
 
 const deleteTask = async (req, res) => {
     try {
 
-        const task = await Task.findByIdAndDelete(req.params.id);
+        const task = await Task.findOne({
+            _id: req.params.id,
+            user: req.user._id
+        });
 
         if (!task) {
             return res.status(404).json({
                 message: "Task not found"
             });
         }
+
+        await Task.deleteOne({
+            _id: req.params.id,
+            user: req.user._id
+        });
 
         return res.status(200).json({
             message: "Task Deleted Successfully"

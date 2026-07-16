@@ -1,4 +1,4 @@
-function TaskItem({ task, onDelete }) {
+function TaskItem({ task, onDelete, onEdit }) {
   return (
     <div
       style={{
@@ -13,7 +13,9 @@ function TaskItem({ task, onDelete }) {
 
       <p>Status: {task.status}</p>
 
-      <button>Edit</button>
+      <button onClick={() => onEdit(task)}>
+        Edit
+      </button>
 
       <button onClick={() => onDelete(task._id)}>
         Delete

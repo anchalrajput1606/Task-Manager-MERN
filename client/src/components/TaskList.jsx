@@ -30,6 +30,12 @@ function TaskList() {
         }
     };
 
+    const editTask = (task) => {
+      console.log(task);
+
+      alert(`Edit Task: ${task.title}`);
+    };
+
   return (
     <div>
       <h2>Task List</h2>
@@ -42,6 +48,7 @@ function TaskList() {
                 key={task._id}
                 task={task}
                 onDelete={deleteTask}
+                onEdit={editTask}
             />
         ))
       )}
