@@ -2,71 +2,62 @@ import { useState } from "react";
 import axios from "axios";
 
 function TaskForm() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/api/tasks", {
+        title,
+        description,
+        status: "Pending",
+        });
 
-        e.preventDefault();
+      alert("Task Added Successfully!");
 
-        try {
+      setTitle("");
+      setDescription("");
 
-            await axios.post("http://localhost:5000/api/tasks", {
-                title,
-                description,
-                status: "Pending"
-            });
+      console.log(response.data);
+    } 
+    catch (error) {
+        console.log(error);
+        console.log(error.response);
+        console.log(error.response?.data);
 
-            alert("Task Added Successfully");
-
-            setTitle("");
-            setDescription("");
-
-            window.location.reload();
-
-        } catch (error) {
-
-            console.log(error);
-            alert("Error Adding Task");
-
-        }
-
+        alert("Error adding task");
+    }
     };
+  return (
+    <div>
+      <h2>Add Task</h2>
 
-    return (
-        <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-            <h2>Add Task</h2>
+        <br />
+        <br />
 
-            <form onSubmit={handleSubmit}>
+        <textarea
+          placeholder="Enter Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
 
-                <input
-                    type="text"
-                    placeholder="Enter Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                />
+        <br />
+        <br />
 
-                <br /><br />
-
-                <textarea
-                    placeholder="Enter Description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-
-                <br /><br />
-
-                <button type="submit">
-                    Add Task
-                </button>
-
-            </form>
-
-        </div>
-    );
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
+  );
 }
 
 export default TaskForm;
