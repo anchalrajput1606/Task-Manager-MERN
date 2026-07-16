@@ -1,6 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-
+import API from "../services/api";
 function TaskForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -9,10 +8,10 @@ function TaskForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/api/tasks", {
-        title,
-        description,
-        status: "Pending",
+      const response = await API.post("/tasks", {
+            title,
+            description,
+            status: "Pending",
         });
 
       alert("Task Added Successfully!");

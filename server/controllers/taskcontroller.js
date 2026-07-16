@@ -14,7 +14,8 @@ const createTask = async (req, res) => {
         const task = await Task.create({
             title,
             description,
-            status
+            status,
+            user: req.user._id
         });
 
         return res.status(201).json({
@@ -30,10 +31,12 @@ const createTask = async (req, res) => {
 
     }
 };
-
 const getTasks = async (req, res) => {
     try {
-        const tasks = await Task.find();
+
+        const tasks = await Task.find({
+            user: req.user._id
+        });
 
         return res.status(200).json(tasks);
 
@@ -45,7 +48,6 @@ const getTasks = async (req, res) => {
 
     }
 };
-
 const getTaskById = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
