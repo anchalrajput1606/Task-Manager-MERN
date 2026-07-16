@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import API from "../api";
+import API from "../services/api";
+import TaskItem from "./TaskItem";
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -16,6 +17,18 @@ function TaskList() {
       console.log(error);
     }
   };
+  const deleteTask = async (id) => {
+        try {
+            await API.delete(`/tasks/${id}`);
+
+            fetchTasks();
+
+            alert("Task Deleted Successfully!");
+        } catch (error) {
+            console.log(error);
+            alert("Error deleting task");
+        }
+    };
 
   return (
     <div>
@@ -25,24 +38,17 @@ function TaskList() {
         <p>No Tasks Found</p>
       ) : (
         tasks.map((task) => (
-          <div
-            key={task._id}
-            style={{
-              border: "1px solid gray",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <h3>{task.title}</h3>
-
-            <p>{task.description}</p>
-
-            <p>Status: {task.status}</p>
-          </div>
+            <TaskItem
+                key={task._id}
+                task={task}
+                onDelete={deleteTask}
+            />
         ))
       )}
     </div>
   );
 }
+
+
 
 export default TaskList;
