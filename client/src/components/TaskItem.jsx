@@ -1,4 +1,4 @@
-function TaskItem({ task, onDelete, onEdit }) {
+function TaskItem({ task, onDelete, onEdit, onComplete }) {
   return (
     <div
       style={{
@@ -15,6 +15,10 @@ function TaskItem({ task, onDelete, onEdit }) {
 
       <button onClick={() => onEdit(task)}>
         Edit
+      </button>
+
+      <button onClick={() => onComplete(task._id)}>
+        Complete
       </button>
 
       <button onClick={() => onDelete(task._id)}>

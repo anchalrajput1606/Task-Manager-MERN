@@ -30,6 +30,21 @@ function TaskList() {
         }
     };
 
+    const completeTask = async (id) => {
+      try {
+        await API.put(`/tasks/${id}`, {
+          status: "Completed",
+        });
+
+        fetchTasks();
+
+        alert("Task Completed Successfully!");
+      } catch (error) {
+        console.log(error);
+        alert("Error updating task");
+      }
+    };
+
     const editTask = (task) => {
       console.log(task);
 
@@ -49,6 +64,7 @@ function TaskList() {
                 task={task}
                 onDelete={deleteTask}
                 onEdit={editTask}
+                onComplete={completeTask}
             />
         ))
       )}
