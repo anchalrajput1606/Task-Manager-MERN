@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TaskForm from "../components/TaskForm";
@@ -6,6 +7,7 @@ import TaskList from "../components/TaskList";
 function Dashboard() {
 
   const navigate = useNavigate();
+  const [editingTask, setEditingTask] = useState(null);
 
   const handleLogout = () => {
 
@@ -26,9 +28,14 @@ function Dashboard() {
         Logout
       </button>
 
-      <TaskForm />
+      <TaskForm
+        editingTask={editingTask}
+        setEditingTask={setEditingTask}
+      />
 
-      <TaskList />
+      <TaskList
+        setEditingTask={setEditingTask}
+      />
 
     </div>
   );

@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import API from "../services/api";
-function TaskForm() {
+function TaskForm({ editingTask, setEditingTask }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  useEffect(() => {
+    if (editingTask) {
+      setTitle(editingTask.title);
+      setDescription(editingTask.description);
+    }
+  }, [editingTask]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

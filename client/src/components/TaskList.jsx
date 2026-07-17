@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import TaskItem from "./TaskItem";
 
-function TaskList() {
+function TaskList({ setEditingTask }) {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -46,9 +46,7 @@ function TaskList() {
     };
 
     const editTask = (task) => {
-      console.log(task);
-
-      alert(`Edit Task: ${task.title}`);
+      setEditingTask(task);
     };
 
   return (
