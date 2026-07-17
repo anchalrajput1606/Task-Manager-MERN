@@ -1,3 +1,4 @@
+import "./Login.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
@@ -29,36 +30,42 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="login-container">
 
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <div className="login-card">
 
-        <br /><br />
+        <h1>📋 Task Manager</h1>
 
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <p>Welcome Back 👋</p>
 
-        <br /><br />
+        <form onSubmit={handleLogin}>
 
-        <button type="submit">Login</button>
-      </form>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <br />
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-      <Link to="/register">
-        Don't have an account? Register
-      </Link>
+          <button type="submit">
+            Login
+          </button>
+
+        </form>
+
+        <Link to="/register">
+          Don't have an account? Register
+        </Link>
+
+      </div>
+
     </div>
   );
 }

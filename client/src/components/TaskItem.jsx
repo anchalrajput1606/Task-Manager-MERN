@@ -1,29 +1,53 @@
+import "./TaskItem.css";
 function TaskItem({ task, onDelete, onEdit, onComplete }) {
   return (
-    <div
-      style={{
-        border: "1px solid gray",
-        margin: "10px",
-        padding: "10px",
-      }}
-    >
+    <div className="task-card">
+
       <h3>{task.title}</h3>
 
       <p>{task.description}</p>
 
-      <p>Status: {task.status}</p>
+      <p>
+        <strong>Status : </strong>
 
-      <button onClick={() => onEdit(task)}>
-        Edit
-      </button>
+        <span
+          className={`status ${
+            task.status === "Completed"
+              ? "completed"
+              : task.status === "In Progress"
+              ? "inprogress"
+              : "pending"
+          }`}
+        >
+          {task.status}
+        </span>
+      </p>
 
-      <button onClick={() => onComplete(task._id)}>
-        Complete
-      </button>
+      <div className="buttons">
 
-      <button onClick={() => onDelete(task._id)}>
-        Delete
+        <button
+          className="edit-btn"
+          onClick={() => onEdit(task)}
+        >
+          ✏ Edit
         </button>
+
+        <button
+          className="complete-btn"
+          onClick={() => onComplete(task._id)}
+        >
+          ✅ Complete
+        </button>
+
+        <button
+          className="delete-btn"
+          onClick={() => onDelete(task._id)}
+        >
+          🗑 Delete
+        </button>
+
+      </div>
+
     </div>
   );
 }

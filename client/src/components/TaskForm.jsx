@@ -1,3 +1,4 @@
+import "./TaskForm.css";
 import { useEffect, useState } from "react";
 import API from "../services/api";
 function TaskForm({ editingTask, setEditingTask }) {
@@ -14,29 +15,45 @@ function TaskForm({ editingTask, setEditingTask }) {
     e.preventDefault();
 
     try {
-      const response = await API.post("/tasks", {
+
+        if (editingTask) {
+
+          await API.put(`/tasks/${editingTask._id}`, {
             title,
             description,
-            status: "Pending",
-        });
+            status: editingTask.status
+          });
 
-      alert("Task Added Successfully!");
+          alert("Task Updated Successfully!");
+          window.location.reload();
 
-      setTitle("");
-      setDescription("");
+          setEditingTask(null);
 
-      console.log(response.data);
-    } 
-    catch (error) {
+        } else {
+
+          await API.post("/tasks", {
+            title,
+            description,
+            status: "Pending"
+          });
+
+          alert("Task Added Successfully!");
+
+        }
+
+        setTitle("");
+        setDescription("");
+
+      } catch (error) {
+
         console.log(error);
-        console.log(error.response);
-        console.log(error.response?.data);
 
-        alert("Error adding task");
-    }
+        alert("Error");
+
+      }
     };
   return (
-    <div>
+    <div className="task-form">
       <h2>Add Task</h2>
 
       <form onSubmit={handleSubmit}>
@@ -47,8 +64,7 @@ function TaskForm({ editingTask, setEditingTask }) {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <br />
-        <br />
+
 
         <textarea
           placeholder="Enter Description"
@@ -56,10 +72,11 @@ function TaskForm({ editingTask, setEditingTask }) {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <br />
-        <br />
 
-        <button type="submit">Add Task</button>
+
+        <button type="submit">
+            {editingTask ? "Update Task" : "Add Task"}
+        </button>
       </form>
     </div>
   );

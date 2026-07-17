@@ -1,3 +1,4 @@
+import "./Register.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
@@ -29,45 +30,49 @@ function Register() {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="register-container">
 
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Enter Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      <div className="register-card">
 
-        <br /><br />
+        <h1>📋 Task Manager</h1>
 
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <p>Create Your Account ✨</p>
 
-        <br /><br />
+        <form onSubmit={handleRegister}>
 
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="text"
+            placeholder="Enter Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-        <br /><br />
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <button type="submit">Register</button>
-      </form>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-      <br />
+          <button type="submit">
+            Register
+          </button>
 
-      <Link to="/">
-        Already have an account? Login
-      </Link>
+        </form>
+
+        <Link to="/">
+          Already have an account? Login
+        </Link>
+
+      </div>
+
     </div>
   );
 }

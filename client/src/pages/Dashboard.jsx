@@ -1,3 +1,4 @@
+import "./Dashboard.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,11 +21,11 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div className="dashboard">
 
       <h1>Task Manager</h1>
 
-      <button onClick={handleLogout}>
+      <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
 
