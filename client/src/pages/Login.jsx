@@ -34,7 +34,7 @@ function Login() {
 
       <div className="login-card">
 
-        <h1>📋 Task Manager</h1>
+        <h1>Task Manager</h1>
 
         <p>Welcome Back 👋</p>
 
